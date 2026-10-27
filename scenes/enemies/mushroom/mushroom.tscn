@@ -1,0 +1,62 @@
+[gd_scene format=3 uid="uid://3i2cauq76cic"]
+
+[ext_resource type="PackedScene" path="res://scenes/base_character.tscn" id="1_base"]
+[ext_resource type="Script" uid="uid://buaonn5rvc8ip" path="res://scenes/enemies/mushroom/mushroom.gd" id="2_mushroom"]
+[ext_resource type="Texture2D" uid="uid://d1bmdoh4let33" path="res://assets/monsters/mushroom/mushroom_sprite_sheet.png" id="3_sheet"]
+[ext_resource type="AnimationLibrary" uid="uid://0v1u4xchfbts" path="res://scenes/enemies/mushroom/mushroom_anims.tres" id="4_anims"]
+[ext_resource type="Script" uid="uid://duxj7mcro525e" path="res://scenes/enemies/states/run.gd" id="5_run"]
+[ext_resource type="Script" uid="uid://dvgry7qu5n631" path="res://scenes/carry/states/carried.gd" id="6_carried"]
+[ext_resource type="Script" uid="uid://63vo2y2ywebx" path="res://scenes/carry/states/thrown.gd" id="7_thrown"]
+[ext_resource type="Script" uid="uid://bvv36o7f0oebf" path="res://scripts/hit_area_3d.gd" id="8_hit_area"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_throw"]
+radius = 0.6
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_body"]
+height = 1.0
+
+[node name="Mushroom" unique_id=364963600 instance=ExtResource("1_base")]
+collision_layer = 8
+script = ExtResource("2_mushroom")
+movement_speed = 2.0
+max_health = 2
+
+[node name="Sprite3D" parent="." index="0"]
+offset = Vector2(0, 14.5)
+texture = ExtResource("3_sheet")
+hframes = 3
+vframes = 6
+
+[node name="AnimationPlayer" parent="." index="1"]
+libraries/ = ExtResource("4_anims")
+
+[node name="FrontRayCast3D" type="RayCast3D" parent="Direction" index="0" unique_id=324539818]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+target_position = Vector3(0, 0, 1)
+
+[node name="DownRayCast3D" type="RayCast3D" parent="Direction" index="1" unique_id=1812329064]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0.9)
+target_position = Vector3(0, -1.5, 0)
+
+[node name="ThrowHitArea3D" type="Area3D" parent="Direction" index="2" unique_id=407550773]
+collision_layer = 0
+collision_mask = 16
+script = ExtResource("8_hit_area")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Direction/ThrowHitArea3D" index="0" unique_id=1493816790]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+shape = SubResource("SphereShape3D_throw")
+disabled = true
+
+[node name="CollisionShape3D" parent="." index="3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+shape = SubResource("CapsuleShape3D_body")
+
+[node name="Run" type="Node" parent="States" index="0" unique_id=799172092]
+script = ExtResource("5_run")
+
+[node name="Carried" type="Node" parent="States" index="1" unique_id=423852094]
+script = ExtResource("6_carried")
+
+[node name="Thrown" type="Node" parent="States" index="2" unique_id=1218500696]
+script = ExtResource("7_thrown")

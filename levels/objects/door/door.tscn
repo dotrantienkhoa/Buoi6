@@ -1,0 +1,127 @@
+[gd_scene format=3 uid="uid://nqnelqjpbqm7"]
+
+[ext_resource type="Script" uid="uid://dmmdcyrsla45l" path="res://levels/objects/door/door.gd" id="1_jobty"]
+[ext_resource type="Texture2D" uid="uid://c1ilwd5wqggpq" path="res://assets/sprites/door/closing.png" id="2_v4c4k"]
+[ext_resource type="Texture2D" uid="uid://dvxpyrrbvbfqo" path="res://assets/sprites/door/idle.png" id="3_427kd"]
+[ext_resource type="Texture2D" uid="uid://ca8bjsnpsw6hy" path="res://assets/sprites/door/opening.png" id="4_a1g2e"]
+[ext_resource type="Script" uid="uid://b2eobbyacfwr1" path="res://scripts/interactive_area_3d.gd" id="5_u3gs2"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wrkjf"]
+atlas = ExtResource("2_v4c4k")
+region = Rect2(0, 0, 46, 56)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_trgux"]
+atlas = ExtResource("2_v4c4k")
+region = Rect2(46, 0, 46, 56)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1bvc4"]
+atlas = ExtResource("2_v4c4k")
+region = Rect2(92, 0, 46, 56)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fh3w0"]
+atlas = ExtResource("3_427kd")
+region = Rect2(0, 0, 46, 56)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vj2me"]
+atlas = ExtResource("4_a1g2e")
+region = Rect2(0, 0, 46, 56)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cxfwy"]
+atlas = ExtResource("4_a1g2e")
+region = Rect2(46, 0, 46, 56)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_chehp"]
+atlas = ExtResource("4_a1g2e")
+region = Rect2(92, 0, 46, 56)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8nmfm"]
+atlas = ExtResource("4_a1g2e")
+region = Rect2(138, 0, 46, 56)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a47vs"]
+atlas = ExtResource("4_a1g2e")
+region = Rect2(184, 0, 46, 56)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_htemk"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wrkjf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_trgux")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1bvc4")
+}],
+"loop": 0,
+"name": &"closing",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fh3w0")
+}],
+"loop": 1,
+"name": &"idle",
+"speed": 1.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vj2me")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cxfwy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_chehp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8nmfm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a47vs")
+}],
+"loop": 0,
+"name": &"opening",
+"speed": 10.0
+}]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_s2c0g"]
+size = Vector3(2.8, 3.5, 0.5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ul400"]
+size = Vector3(2.4, 2.4, 1.6)
+
+[node name="Door" type="Node3D" unique_id=713381704]
+script = ExtResource("1_jobty")
+
+[node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="." unique_id=1340510993]
+offset = Vector2(0, 28)
+pixel_size = 0.0625
+billboard = 1
+shaded = true
+alpha_cut = 1
+texture_filter = 0
+sprite_frames = SubResource("SpriteFrames_htemk")
+animation = &"opening"
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=1017199331]
+collision_mask = 0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" unique_id=807549379]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.75, 0)
+shape = SubResource("BoxShape3D_s2c0g")
+
+[node name="InteractiveArea3D" type="Area3D" parent="." unique_id=1989073268]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.2)
+script = ExtResource("5_u3gs2")
+prompt_height = 4.0
+metadata/_custom_type_script = "uid://b2eobbyacfwr1"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="InteractiveArea3D" unique_id=1904223648]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2, 0)
+shape = SubResource("BoxShape3D_ul400")
+
+[node name="Spawn" type="Marker3D" parent="." unique_id=2083896390]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 3.2)

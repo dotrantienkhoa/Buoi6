@@ -1,0 +1,16 @@
+if GameManager.is_door_unlocked("stage_3_cleared") or GameManager.is_door_unlocked("stage_3_enemies_dead"):
+	mushroom: Cáo ơi! Tôi thấy bạn Nấm Nhỏ đã an toàn rồi!
+	mushroom: Cảm ơn Cáo rất nhiều vì đã dũng cảm đánh bại tên Sao Biển và giải cứu bạn tôi!
+	foxy: Không có gì đâu, hai bạn hãy mau chóng trở về làng an toàn nhé.
+	mushroom: Vâng ạ! Làng Nấm chúng tôi sẽ luôn nhớ ơn cứu mạng của Cáo! Chúc Cáo luôn bình an trên chặng đường sắp tới!
+elif GameManager.is_door_unlocked("stage_3_briefing_heard"):
+	mushroom: Cáo nhớ cẩn thận nhé! Tên Sao Biển và đàn tay sai đang canh giữ Nấm Nhỏ ở bãi đá phía trước đấy!
+	foxy: Ta biết rồi, ta đang trên đường tới đó đây!
+else:
+	do GameManager.unlock_door("stage_3_briefing_heard")
+	mushroom: Cáo ơi! May quá Cáo đã đến đây rồi!
+	foxy: Chuyện gì xảy ra vậy Nấm? Sao cậu lại hoảng hốt thế này?
+	mushroom: Chúng tôi đến hòn đảo này hái thuốc, không ngờ lại bị quái vật phục kích!
+	mushroom: Bạn Nấm Nhỏ của tôi đã bị tên thủ lĩnh Sao Biển bắt giữ ở bãi đá phía trước rồi!
+	foxy: Đừng lo, ta sẽ qua đó nói chuyện và đưa Nấm Nhỏ trở về an toàn!
+	mushroom: Cẩn thận nhé Cáo! Tên Sao Biển hung dữ lắm, xung quanh hắn còn có đàn tay sai bảo vệ nữa!

@@ -1,0 +1,113 @@
+[gd_scene format=3 uid="uid://clxulon4q7jr"]
+
+[ext_resource type="PackedScene" path="res://scenes/base_character.tscn" id="1_base"]
+[ext_resource type="Script" uid="uid://2euugfy3lnlf" path="res://scenes/player/player.gd" id="2_player"]
+[ext_resource type="Texture2D" uid="uid://dsuk1m8k46ji7" path="res://assets/foxy/fox_hat/foxy_hat_full_sheet.png" id="3_sheet"]
+[ext_resource type="AnimationLibrary" uid="uid://blgio7o0e5eqa" path="res://scenes/player/player_anims.tres" id="4_anims"]
+[ext_resource type="Script" uid="uid://bytwgpxy1wbb3" path="res://scenes/player/states/idle.gd" id="5_idle"]
+[ext_resource type="Script" uid="uid://kx1fr4p8vy0f" path="res://scenes/player/states/run.gd" id="6_run"]
+[ext_resource type="Script" uid="uid://dpcr7kcoh7xdh" path="res://scenes/player/states/jump.gd" id="7_jump"]
+[ext_resource type="Script" uid="uid://cqn00yvsknulb" path="res://scenes/player/states/fall.gd" id="8_fall"]
+[ext_resource type="Script" uid="uid://e18al3cgjb1u" path="res://scenes/player/states/attack.gd" id="9_attack"]
+[ext_resource type="Script" uid="uid://mrv6n5qxlyls" path="res://scenes/player/states/hurt.gd" id="10_hurt"]
+[ext_resource type="Script" uid="uid://duv4if3ceujbj" path="res://scenes/player/states/dead.gd" id="11_dead"]
+[ext_resource type="Script" uid="uid://coy8holsj103m" path="res://scripts/hurt_area_3d.gd" id="12_hurt_area"]
+[ext_resource type="Script" uid="uid://bvv36o7f0oebf" path="res://scripts/hit_area_3d.gd" id="13_hit_area"]
+[ext_resource type="Script" uid="uid://cp0s8x1y1c0dy" path="res://scenes/player/states/carry.gd" id="14_carry"]
+[ext_resource type="Script" uid="uid://dxuu0cmvs4nmb" path="res://scenes/player/states/throw.gd" id="15_throw"]
+[ext_resource type="Script" path="res://scenes/player/states/talk.gd" id="16_talk"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_hurt"]
+radius = 0.6
+height = 1.6
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_hit"]
+size = Vector3(1.6, 1.6, 1.6)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_grab"]
+size = Vector3(1.6, 1.6, 1.6)
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_body"]
+radius = 0.7998047
+height = 1.6977539
+
+[node name="Player" unique_id=1010956037 instance=ExtResource("1_base")]
+collision_layer = 2
+collision_mask = 9
+floor_max_angle = 0.87266463
+script = ExtResource("2_player")
+movement_speed = 5.0
+
+[node name="Sprite3D" parent="." index="0"]
+offset = Vector2(0, 21.5)
+texture = ExtResource("3_sheet")
+hframes = 4
+vframes = 24
+frame = 16
+
+[node name="AnimationPlayer" parent="." index="1"]
+libraries/ = ExtResource("4_anims")
+
+[node name="HurtArea3D" type="Area3D" parent="Direction" index="0" unique_id=1895061635]
+collision_layer = 4
+collision_mask = 0
+script = ExtResource("12_hurt_area")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Direction/HurtArea3D" index="0" unique_id=1275400261]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.85, 0)
+shape = SubResource("CapsuleShape3D_hurt")
+
+[node name="HitArea3D" type="Area3D" parent="Direction" index="1" unique_id=805334533]
+collision_layer = 0
+collision_mask = 16
+script = ExtResource("13_hit_area")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Direction/HitArea3D" index="0" unique_id=1646033591]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.85, 1)
+shape = SubResource("BoxShape3D_hit")
+disabled = true
+
+[node name="GrabArea3D" type="Area3D" parent="Direction" index="2" unique_id=1969379777]
+collision_layer = 0
+collision_mask = 8
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Direction/GrabArea3D" index="0" unique_id=399999001]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.85, 1)
+shape = SubResource("BoxShape3D_grab")
+
+[node name="CollisionShape3D" parent="." index="3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.84887695, 0)
+shape = SubResource("CapsuleShape3D_body")
+
+[node name="Idle" type="Node" parent="States" index="0" unique_id=1349563978]
+script = ExtResource("5_idle")
+
+[node name="Run" type="Node" parent="States" index="1" unique_id=1294606341]
+script = ExtResource("6_run")
+
+[node name="Jump" type="Node" parent="States" index="2" unique_id=1382746028]
+script = ExtResource("7_jump")
+
+[node name="Fall" type="Node" parent="States" index="3" unique_id=1710037657]
+script = ExtResource("8_fall")
+
+[node name="Attack" type="Node" parent="States" index="4" unique_id=1433051400]
+script = ExtResource("9_attack")
+
+[node name="Hurt" type="Node" parent="States" index="5" unique_id=40167343]
+script = ExtResource("10_hurt")
+
+[node name="Dead" type="Node" parent="States" index="6" unique_id=554362463]
+script = ExtResource("11_dead")
+
+[node name="Carry" type="Node" parent="States" index="7" unique_id=1621290268]
+script = ExtResource("14_carry")
+
+[node name="Throw" type="Node" parent="States" index="8" unique_id=460928618]
+script = ExtResource("15_throw")
+
+[node name="Talk" type="Node" parent="States" index="9"]
+script = ExtResource("16_talk")
+
+[node name="HoldPoint" type="Marker3D" parent="." index="5" unique_id=321246195]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.9, 0)

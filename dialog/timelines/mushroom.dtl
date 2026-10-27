@@ -1,0 +1,11 @@
+if GameManager.is_door_unlocked("gate"):
+    mushroom: Cửa sang đảo bên kia mở rồi đó. Cáo đi cẩn thận nhé!
+else:
+    mushroom: Chào Cáo! Ta là Nấm, người giữ cánh cửa trên bục cao.
+    mushroom: Bên kia cửa là đảo của đàn cua dữ. Cáo có muốn sang đó không?
+    - Có, mở cửa giúp ta!
+        foxy: Ta không sợ cua đâu!
+        do GameManager.unlock_door("gate")
+        mushroom: Dũng cảm lắm! Cửa mở rồi đó.
+    - Thôi, để lúc khác
+        mushroom: Khi nào sẵn sàng thì quay lại tìm ta nhé.

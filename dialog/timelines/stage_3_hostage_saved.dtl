@@ -1,0 +1,7 @@
+mushroom: Ôi Cáo ơi! Cậu đã đánh bại được tên Sao Biển hung ác đó rồi!
+foxy: Cậu không sao chứ Nấm Nhỏ? Cậu có bị thương ở đâu không?
+mushroom: Tôi không sao, cảm ơn Cáo rất nhiều! Nếu không có cậu, tôi không biết phải làm sao nữa...
+mushroom: Tôi nhặt được chiếc chìa khóa cổ này rơi ra từ tên Sao Biển. Cậu hãy giữ lấy nó nhé!
+do GameManager.unlock_door("stage_3_cleared")
+foxy: Tuyệt vời! Hai bạn hãy mau chóng quay về làng an toàn đi nhé.
+mushroom: Chúng tôi sẽ luôn ghi nhớ lòng dũng cảm của Cáo!

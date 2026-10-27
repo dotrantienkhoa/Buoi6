@@ -1,0 +1,21 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/base_character.gd" id="1_base"]
+
+[node name="BaseCharacter" type="CharacterBody3D"]
+script = ExtResource("1_base")
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+pixel_size = 0.0625
+billboard = 1
+shaded = true
+alpha_cut = 1
+texture_filter = 0
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+
+[node name="Direction" type="Node3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+
+[node name="States" type="Node" parent="."]

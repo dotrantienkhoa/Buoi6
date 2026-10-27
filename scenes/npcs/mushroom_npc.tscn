@@ -1,0 +1,58 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://scenes/base_character.tscn" id="1_base"]
+[ext_resource type="Script" path="res://scenes/npcs/mushroom_npc.gd" id="2_npc"]
+[ext_resource type="Texture2D" path="res://assets/monsters/mushroom/mushroom_sprite_sheet.png" id="3_sheet"]
+[ext_resource type="AnimationLibrary" path="res://scenes/npcs/mushroom_npc_anims.tres" id="4_anims"]
+[ext_resource type="Script" path="res://scripts/interactive_area_3d.gd" id="5_area"]
+[ext_resource type="Script" path="res://scenes/npcs/states/idle.gd" id="6_idle"]
+[ext_resource type="Script" path="res://scenes/npcs/states/wander.gd" id="7_wander"]
+[ext_resource type="Script" path="res://scenes/npcs/states/talk.gd" id="8_talk"]
+[ext_resource type="Script" path="res://scripts/path_agent.gd" id="9_path_agent"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_body"]
+height = 1.0
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_talk"]
+height = 2.0
+radius = 2.0
+
+[node name="MushroomNpc" instance=ExtResource("1_base")]
+collision_layer = 8
+script = ExtResource("2_npc")
+movement_speed = 1.5
+
+[node name="Sprite3D" parent="." index="0"]
+modulate = Color(1, 0.85, 0.55, 1)
+offset = Vector2(0, 14.5)
+texture = ExtResource("3_sheet")
+hframes = 3
+vframes = 6
+
+[node name="AnimationPlayer" parent="." index="1"]
+libraries/ = ExtResource("4_anims")
+
+[node name="CollisionShape3D" parent="." index="3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+shape = SubResource("CapsuleShape3D_body")
+
+[node name="Idle" type="Node" parent="States" index="0"]
+script = ExtResource("6_idle")
+
+[node name="Wander" type="Node" parent="States" index="1"]
+script = ExtResource("7_wander")
+
+[node name="Talk" type="Node" parent="States" index="2"]
+script = ExtResource("8_talk")
+
+[node name="PathAgent" type="Node" parent="."]
+script = ExtResource("9_path_agent")
+
+[node name="InteractiveArea3D" type="Area3D" parent="."]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("5_area")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="InteractiveArea3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CylinderShape3D_talk")

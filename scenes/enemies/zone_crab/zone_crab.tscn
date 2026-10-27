@@ -1,0 +1,36 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://scenes/enemies/crab/crab.tscn" id="1_crab"]
+[ext_resource type="Script" path="res://scenes/enemies/zone_crab/zone_crab.gd" id="2_zone_crab"]
+[ext_resource type="Script" path="res://scenes/enemies/zone_crab/states/wander.gd" id="3_wander"]
+[ext_resource type="Script" path="res://scenes/enemies/zone_crab/states/chase.gd" id="4_chase"]
+[ext_resource type="Script" path="res://scenes/enemies/zone_crab/states/return.gd" id="5_return"]
+[ext_resource type="Script" path="res://scripts/path_agent.gd" id="6_path_agent"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_detect"]
+radius = 4.0
+
+[node name="ZoneCrab" instance=ExtResource("1_crab")]
+script = ExtResource("2_zone_crab")
+movement_speed = 1.5
+
+[node name="DetectPlayerArea3D" type="Area3D" parent="Direction"]
+collision_layer = 0
+collision_mask = 2
+monitorable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Direction/DetectPlayerArea3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+shape = SubResource("SphereShape3D_detect")
+
+[node name="Wander" type="Node" parent="States"]
+script = ExtResource("3_wander")
+
+[node name="Chase" type="Node" parent="States"]
+script = ExtResource("4_chase")
+
+[node name="Return" type="Node" parent="States"]
+script = ExtResource("5_return")
+
+[node name="PathAgent" type="Node" parent="."]
+script = ExtResource("6_path_agent")

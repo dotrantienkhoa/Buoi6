@@ -1,0 +1,39 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scenes/enemies/barrel/barrel_bullet.gd" id="1_bullet"]
+[ext_resource type="Texture2D" path="res://assets/monsters/barrel/barrel_bullet.png" id="2_sprite"]
+[ext_resource type="Script" path="res://scripts/hit_area_3d.gd" id="3_hit_area"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_body"]
+radius = 0.2
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_hit"]
+radius = 0.3
+
+[node name="BarrelBullet" type="RigidBody3D"]
+collision_layer = 32
+collision_mask = 1
+gravity_scale = 0.0
+contact_monitor = true
+max_contacts_reported = 1
+script = ExtResource("1_bullet")
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+pixel_size = 0.0625
+billboard = 1
+shaded = true
+alpha_cut = 1
+texture_filter = 0
+texture = ExtResource("2_sprite")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_body")
+
+[node name="HitArea3D" type="Area3D" parent="."]
+collision_layer = 0
+collision_mask = 4
+script = ExtResource("3_hit_area")
+damage = 1
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HitArea3D"]
+shape = SubResource("SphereShape3D_hit")
